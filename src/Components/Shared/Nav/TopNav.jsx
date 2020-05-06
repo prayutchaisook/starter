@@ -1,6 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link, useRouteMatch,  NavLink } from "react-router-dom";
 
 const TopNav = () => {
+    const [isMenuExpand, setIsMenuExpand] = useState(false);
+    const toggleMenu = () => {
+
+        window.$('.offcanvas-collapse').toggleClass('open');
+
+
+    }
+    const actionMenu = (openOrclose) => {
+        window.$('.offcanvas-collapse').toggleClass('open');
+    }
+
+    function MenuLink({ label, to, activeOnlyWhenExact }) {
+    
+      
+        return (
+
+            <li className="nav-item">
+                <NavLink onClick={() => { actionMenu('close') }} className="nav-link"  exact to={to} activeClassName="active">{label}</NavLink>
+            </li>
+        );
+       
+      
+    }
     return (
         <div className="Nav">
             <nav className="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
@@ -11,6 +35,7 @@ const TopNav = () => {
                     className="navbar-toggler p-0 border-0"
                     type="button"
                     data-toggle="offcanvas"
+                    onClick={() => { toggleMenu() }}
                 >
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -19,65 +44,11 @@ const TopNav = () => {
                     className="navbar-collapse offcanvas-collapse"
                     id="navbarsExampleDefault"
                 >
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
-                            <a className="nav-link" href="#">
-                                Dashboard <span className="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">
-                                Notifications
-          </a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">
-                                Profile
-          </a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">
-                                Switch account
-          </a>
-                        </li>
-                        <li className="nav-item dropdown">
-                            <a
-                                className="nav-link dropdown-toggle"
-                                href="#"
-                                id="dropdown01"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                            >
-                                Settings
-          </a>
-                            <div className="dropdown-menu" aria-labelledby="dropdown01">
-                                <a className="dropdown-item" href="#">
-                                    Action
-            </a>
-                                <a className="dropdown-item" href="#">
-                                    Another action
-            </a>
-                                <a className="dropdown-item" href="#">
-                                    Something else here
-            </a>
-                            </div>
-                        </li>
+                    <ul className="navbar-nav nav ml-auto">
+                        <MenuLink to="/" label="Home" />
+                        <MenuLink to="/about" label="About" />
                     </ul>
-                    <form className="form-inline my-2 my-lg-0">
-                        <input
-                            className="form-control mr-sm-2"
-                            type="text"
-                            placeholder="Search"
-                            aria-label="Search"
-                        />
-                        <button
-                            className="btn btn-outline-success my-2 my-sm-0"
-                            type="submit"
-                        >
-                            Search
-        </button>
-                    </form>
+
                 </div>
             </nav>
 
